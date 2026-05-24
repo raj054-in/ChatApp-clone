@@ -1,0 +1,53 @@
+
+# Node dependencies
+node_modules/
+
+# Optional npm cache
+.npm
+
+# Environment variables and secrets
+.env
+.env.*.local
+secret.js
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+debug.log
+
+# Runtime files
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage and test output
+coverage/
+.nyc_output/
+
+# Build output
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor folders
+.vscode/
+.idea/
+
+# Misc
+*.tgz
+*.gz
+*.zip
+tmp/
+temp/
+uploads/
+.cache/
+.eslintcache
+.node_repl_history
+
