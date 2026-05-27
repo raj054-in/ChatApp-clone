@@ -14,9 +14,9 @@ const SignUpPage = () => {
     const {name,value}=e.target
     setForm(prev=>({...prev,[name]:value}))
   }
-  const handleSubmit=(e)=>{
+  const handleSubmit=async (e)=>{
     e.preventDefault()
-   const isSignedUp= signUp(form)
+   const isSignedUp = await signUp(form)
    if (isSignedUp) {
     navigate('/')
     

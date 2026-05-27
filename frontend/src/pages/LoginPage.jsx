@@ -13,10 +13,10 @@ const LoginPage = () => {
     const {name,value}=e.target
     setForm(prev=>({...prev ,[name]:value}))
   }
-  const handleSubmit=(e)=>{
+  const handleSubmit=async (e)=>{
     e.preventDefault()
-    logIn(form)
-    if (!isLoggingIn) {
+    const isLoggedIn = await logIn(form)
+    if (isLoggedIn) {
       navigate('/')  
     }
   }

@@ -11,21 +11,22 @@ const App = () => {
   const checkAuth = useAuthStore((state) => state.checkAuth)
   const isCheckingAuth = useAuthStore((state) => state.isCheckingAuth)
   const authUser = useAuthStore((state) => state.authUser)
+  const connectSocket = useAuthStore((state) => state.connectSocket)
+  const disconnectSocket = useAuthStore((state) => state.disconnectSocket)
   useEffect(()=>{
     checkAuth()
   },[checkAuth])
+  useEffect(() => {
+    if (authUser) {
+      connectSocket()
+      return
+    }
+
+    disconnectSocket()
+  }, [authUser, connectSocket, disconnectSocket])
   if(isCheckingAuth){
     return <div>Loading...</div>
   }
-  console.log(authUser)
-
-
-
-
-
-
-
-
 
   return (
     <div> 

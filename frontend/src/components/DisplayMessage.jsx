@@ -3,11 +3,9 @@ import { useAuthStore } from '../store/useAuthStore'
 
 const DisplayMessage = ({ message }) => {
   const { authUser } = useAuthStore()
-  const authUserId = authUser.user._id
+  const authUserId = authUser?.user?._id ?? authUser?._id
   const isOwnMessage = String(message.senderId) === String(authUserId)
-  console.log(isOwnMessage)
-  console.log(authUser)
-  console.log(message.senderId)
+  
 
 
 
