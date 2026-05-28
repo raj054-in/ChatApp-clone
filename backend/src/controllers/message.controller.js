@@ -1,6 +1,7 @@
 const userModel=require("../models/user.model")
 const messageModel=require("../models/message.model")
 const uploadPp=require('../services/uploadPp')
+const { getIO, getReciversScoketId } = require("../services/socket")
 
 async function getAllUsers(req,res) {
     try {
@@ -57,6 +58,15 @@ async function  sendMessage(req,res) {
         })
         
         await newMessage.save()
+        const senderSocketId=getReciversScoketId(currentUserId)
+        const receiverSocketId=getReciversScoketId(participantId)
+        const io=getIO()
+        if(io&&receiverSocketId){
+            io.to(receiverSocketId).emit('message',newMessage)
+        }
+        if(io&&senderSocketId&&senderSocketId!==receiverSocketId){
+            io.to(senderSocketId).emit('message',newMessage)
+        }
         res.status(200).json({
             message:"message sent",
             newMessage

@@ -6,11 +6,11 @@ const userModel=require("../models/user.model")
 
 async function authMiddleware(req,res,next) {
     const token =req.cookies.jwt
-    const isTokenBlacklisted=await balcklistTokenModel.findOne({token})
-    if(isTokenBlacklisted){
+    if(!token){
         return res.status(401).json({message:"Unauthorized"})
     }
-    if(!token){
+    const isTokenBlacklisted=await balcklistTokenModel.findOne({token})
+    if(isTokenBlacklisted){
         return res.status(401).json({message:"Unauthorized"})
     }
     try {

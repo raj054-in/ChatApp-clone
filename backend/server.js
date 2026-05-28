@@ -1,7 +1,13 @@
-const app =require('./src/app')
+
 const connectDB=require('./src/config/db')
 const {PORT}=require("./secret")
-const {io,server}=require("./src/services/socket")
+const http=require("http")
+const app=require('./src/app')
+const {initSocket}=require("./src/services/socket")
+
+
+const server=http.createServer(app)
+initSocket(server)
 
 
 connectDB()

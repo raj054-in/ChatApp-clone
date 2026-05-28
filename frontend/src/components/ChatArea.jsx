@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useUserStore } from '../store/useUserStore'
 import SendMessage from './SendMessage'
 import DisplayMessage from './DisplayMessage'
 
 const ChatArea = () => {
-  const {messages,participant}=useUserStore()
+  const {messages,participant,subscribeToMessage,unSubscribeToMessage}=useUserStore()
+  useEffect(()=>{
+    subscribeToMessage()
+    return ()=>{
+      unSubscribeToMessage()
+    }
+
+  },[participant])
+  
 
   
 

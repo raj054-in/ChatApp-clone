@@ -5,6 +5,7 @@ import{io} from "socket.io-client"
 
 
 
+
 export const useAuthStore = create((set,get) => ({
     authUser: null,
     isCheckingAuth: true,
@@ -13,13 +14,15 @@ export const useAuthStore = create((set,get) => ({
     isUpdatingProfile: false,
     socket:null,
     onlineUsers:null,
+    isLoggingOut:false,
     
 
     checkAuth: async () => {
         try {
             const res = await axiosInstance.get('/auth/profile')
-            set({ authUser: res.data })
+            set({ authUser: res.data.user ?? res.data })
             console.log('check auth response', res.data)
+
            
         } catch (error) {
             console.log('error in check auth', error)
@@ -66,6 +69,25 @@ export const useAuthStore = create((set,get) => ({
         }
 
     },
+    logOut:async () => {
+        set({isLoggingOut:true})
+        try {
+            const res =await axiosInstance.post('/auth/logout')
+            set({authUser:null})
+            toast.success(res.data.message||"User Logged Out")
+        } catch (error) {
+            toast.error(res.data.message)
+        }
+        finally{
+            set({isLoggingOut:false})
+        }
+    },
+
+
+
+
+
+
     isProfileUpdating:false,
     updateProfile:async(profilePic)=>{
         set({isProfileUpdating:true})
@@ -82,24 +104,29 @@ export const useAuthStore = create((set,get) => ({
 
         }
     },
-    connectSocket:async (params) => {
+    connectSocket:async () => {
         const {authUser}=get()
         if (!authUser||get().socket?.connected) return 
 
         const socket = io("http://localhost:5000",{
             autoConnect:false,
             query:{
-                userId:authUser._id
+                userId:authUser._id ?? authUser.user?._id
             }
         })
         console.log('connecting socket for', authUser?._id ?? authUser?.user?._id)
-        socket.connect()
+        socket.on('getOnlineUsers',(userIds)=>{
+            set({onlineUsers:userIds})
+            console.log("online users",userIds)
+        })
         socket.on("connect",()=>{
             console.log('socket connected', socket.id)
         })
-        socket.on('getOnlineUsers',(userIds)=>{
-            set({onlineUsers:userIds})
-        })
+
+        socket.connect()
+
+
+      
 
 
 

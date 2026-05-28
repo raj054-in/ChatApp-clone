@@ -1,9 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthStore } from '../store/useAuthStore'
+
 
 const Navbar = () => {
+  const {logOut}=useAuthStore()
+
+
+
   const handleLogout = () => {
-    // TODO: wire this to auth store logout action when available.
+      logOut()
+  
+
+
+
+
     console.log('logout clicked')
   }
 

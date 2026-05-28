@@ -5,6 +5,7 @@ const DisplayMessage = ({ message }) => {
   const { authUser } = useAuthStore()
   const authUserId = authUser?.user?._id ?? authUser?._id
   const isOwnMessage = String(message.senderId) === String(authUserId)
+ 
   
 
 
