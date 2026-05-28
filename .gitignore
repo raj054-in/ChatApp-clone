@@ -8,7 +8,7 @@ node_modules/
 # Environment variables and secrets
 .env
 .env.*.local
-secret.js
+
 
 # Logs
 logs/
