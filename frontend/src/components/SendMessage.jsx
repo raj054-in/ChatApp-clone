@@ -4,6 +4,7 @@ import { useUserStore } from '../store/useUserStore'
 const SendMessage = () => {
   const [message, setMessage] = useState({ text: '', image: null })
   const{SendMessage,participant}=useUserStore()
+  const selectedFileName = message.image?.name
 
   const handleChange = (event) => {
     const { name, value, files, type } = event.target;
@@ -40,6 +41,19 @@ const SendMessage = () => {
 
   return (
     <form onSubmit={handleSubmit} className="border-t border-gray-800 bg-gray-950 p-3">
+      {selectedFileName ? (
+        <div className="mb-2 flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+          <span className="truncate">Selected file: {selectedFileName}</span>
+          <button
+            type="button"
+            onClick={() => setMessage(prev => ({ ...prev, image: null }))}
+            className="ml-3 shrink-0 text-emerald-200 transition hover:text-white"
+          >
+            Clear
+          </button>
+        </div>
+      ) : null}
+
       <div className="flex items-end gap-2 rounded-2xl border border-gray-800 bg-gray-900/80 p-2 shadow-lg shadow-black/10">
         <label
           htmlFor="messageImage"
@@ -54,8 +68,9 @@ const SendMessage = () => {
         </label>
 
         <div className="flex-1">
-          <textarea
+          <input
             id="messageText"
+            type='text'
             name="text"
             value={message.text}
             onChange={handleChange}

@@ -49,3 +49,23 @@ html,body,#root{
 
 .user-avatar{ width:40px; height:40px; border-radius:6px; object-fit:cover; }
 .msg-image{ max-width:10rem; max-height:10rem; width:auto; height:auto; object-fit:contain; border-radius:6px; display:block }
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+	.homepage-body{ display:flex; flex-direction:column; height:calc(100vh - 64px); }
+	.homepage-aside{ width:100%; padding:.5rem; border-right:none; border-bottom:1px solid rgba(255,255,255,0.04); max-height:40vh; overflow:auto }
+	.homepage-main{ width:100%; padding:.75rem }
+
+	.user-card{ padding:.5rem; margin-bottom:.5rem }
+	.user-name{ font-size:0.95rem }
+
+	.chat-area{ height:calc(100vh - 64px - 40vh); min-height:0 }
+	.chat-header{ padding:.5rem }
+	.user-avatar{ width:32px; height:32px }
+
+	.chat-list{ padding:.5rem }
+	.chat-footer{ padding:.5rem }
+
+	.msg-bubble{ max-width:16rem }
+	.msg-image{ max-width:8rem; max-height:8rem }
+}

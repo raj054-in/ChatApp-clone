@@ -1,14 +1,19 @@
-import React, { useEffect, useEffectEvent } from 'react'
+import React, { use, useEffect, useEffectEvent } from 'react'
 import Navbar from '../components/Navbar'
 import { useUserStore } from '../store/useUserStore'
 import ChatArea from '../components/ChatArea'
+import { useAuthStore } from '../store/useAuthStore'
 
 export const HomePage = () => {
   const {isUsersLoading,users,getUsers,isMessagesLoading,messages,getMessages,isParticipantSelected,participant}=useUserStore()
+  const {onlineUsers}=useAuthStore()
   useEffect(() => {
+    
     getUsers()
   }, [])
   console.log(users)
+
+
 
 
 
@@ -35,7 +40,7 @@ export const HomePage = () => {
       <aside className='homepage-aside'>
       {
         users.map((user)=>(
-          <div onClick={()=>{chatSelected(user)}} key={user._id} className='user-card flex items-center'>
+          <div onClick={()=>{chatSelected(user)}} key={user._id} className='user-card flex items-center w-full'>
             {user.profilePic ? (
               <img src={user.profilePic} alt={user.fullName} className='w-10 h-10 rounded-full object-cover mr-3' />
             ) : (
@@ -43,7 +48,13 @@ export const HomePage = () => {
                 {user.fullName ? user.fullName.charAt(0).toUpperCase() : 'U'}
               </div>
             )}
-            <h3 className='user-name'>{user.fullName}</h3>
+            <h3 className='user-name flex-1'>{user.fullName}</h3>
+            {
+              onlineUsers?.includes(String(user._id))? (
+                <div className='h-3 w-3 rounded-full bg-green-500 ml-auto'></div>
+                
+              ):null
+            }
           </div>
         ))
       }

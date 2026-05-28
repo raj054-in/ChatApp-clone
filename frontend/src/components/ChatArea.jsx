@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useUserStore } from '../store/useUserStore'
 import SendMessage from './SendMessage'
 import DisplayMessage from './DisplayMessage'
@@ -12,9 +12,14 @@ const ChatArea = () => {
     }
 
   },[participant])
-  
+  const messageEndRef=useRef(null)
 
-  
+  const scrollToBottom=()=>{
+    messageEndRef.current?.scrollIntoView({behavior:'smooth'})
+  }
+  useEffect(()=>{
+    scrollToBottom()
+  },[messages])
 
 
 
@@ -36,6 +41,7 @@ const ChatArea = () => {
              <DisplayMessage key={message._id} message={message} />
             ))
           }
+          <div ref={messageEndRef}> </div>
 
         </div>
 
