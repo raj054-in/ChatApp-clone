@@ -4,6 +4,7 @@ const express= require("express")
 const cookieParser = require('cookie-parser')
 const app =express()
 const cors=require("cors")
+const path = require('path')
 
 
 app.use(express.json())
@@ -13,6 +14,7 @@ app.use(cors({
     credentials:true
 }))
 
+// __dirname is provided by CommonJS; no need to redeclare it
 
 const authRoute=require('./routes/auth.routes')
 const messageRoute=require("./routes/message.routes")
@@ -25,6 +27,13 @@ app.use("/",(req,res)=>{
         message:"welcome to My app"
     })
 })
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
 
 
