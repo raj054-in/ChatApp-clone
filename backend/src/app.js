@@ -22,16 +22,18 @@ const messageRoute=require("./routes/message.routes")
 app.use("/api/auth",authRoute)
 app.use("/api/message",messageRoute)
 
-app.use("/",(req,res)=>{
-    res.status(200).json({        
-        message:"welcome to My app"
+app.get('/api/health', (req, res) => {
+    res.status(200).json({
+        message: 'welcome to My app'
     })
 })
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  const distPath = path.join(__dirname, "../../frontend/dist")
+  app.use(express.static(distPath));
 
   app.get("/{*splat}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(distPath, "index.html"));
   });
 }
 
