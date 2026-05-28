@@ -23,8 +23,11 @@ const Navbar = () => {
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-indigo-600">
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="currentColor" aria-hidden="true">
-              <path d="M12 3C6.48 3 2 6.94 2 11.8c0 2.66 1.34 5.04 3.46 6.65V22l3.22-1.77c1.06.29 2.18.45 3.32.45 5.52 0 10-3.94 10-8.8S17.52 3 12 3zm-3.2 9.3a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4zm3.2 0a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4zm3.2 0a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4z" />
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" fill="#fff"/>
+              <circle cx="9" cy="11" r="1.2" fill="#4F46E5" />
+              <circle cx="13" cy="11" r="1.2" fill="#4F46E5" />
+              <circle cx="17" cy="11" r="1.2" fill="#4F46E5" />
             </svg>
           </span>
           <span className="text-sm font-semibold tracking-wide text-white sm:text-base">ChatApp</span>
